@@ -15,6 +15,7 @@ begin
   Jeweler::Tasks.new do |gem|
     gem.version = "#{config[:MAJOR]}.#{config[:MINOR]}.#{config[:PATCH]}"
     gem.name = name
+    gem.executables = ['onetime']
     gem.rubyforge_project = gem.name
     gem.summary = "Auto-define your rack-apps in plaintext."
     gem.description = "Auto-define your rack-apps in plaintext."
