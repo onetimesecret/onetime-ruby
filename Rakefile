@@ -3,7 +3,7 @@ require "rake"
 require "rake/clean"
 require 'yaml'
 
-require 'rake/rdoctask'
+require 'hanna/rdoctask'
  
 config = YAML.load_file("VERSION.yml")
 task :default => ["build"]
