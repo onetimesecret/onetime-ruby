@@ -35,6 +35,9 @@ class Onetime::CLI
       if obj.global.format && !['json', 'yaml', 'csv'].member?(obj.global.format)
         raise RuntimeError, "Unsupported format: #{obj.global.format}"
       end
+      if !STDOUT.tty? && !obj.global.format
+        raise RuntimeError, "No tty. Must specify an output format. See #{$0} generate -h"
+      end
     end
     
     after do |obj|
@@ -53,17 +56,34 @@ class Onetime::CLI
       end
     end
     
-    command :generate do |obj|
-      if (!STDOUT.tty?) && !obj.global.format
-        raise RuntimeError, "No tty. Must specify a format. See #{$0} generate -h"
+    command :share do |obj|
+      begin
+        if Kernel.select [$stdin], nil, nil, 0
+          secret_value = STDIN.read
+        else
+          STDERR.puts "Paste secret here (hit control-D to continue):"
+          secret_value = ARGF.read
+        end
+      rescue Interrupt => ex
+        puts "Exiting..."
+        exit 0
       end
+      raise RuntimeError, "No secret provided" if secret_value.chomp.empty?
+      @ret = @api.post '/share', :secret => secret_value
+      uri = OT::API.web_uri('secret', @ret[:secret_key])
+      if obj.global.format == 'csv' || obj.global.format.nil?
+        puts uri
+      end
+    end
+    
+    command :generate do |obj|
       @ret = @api.post '/generate'
-      uri, value = OT::API.web_uri('secret', @ret[:secret_key]), @ret[:value]
+      uri, secret_value = OT::API.web_uri('secret', @ret[:secret_key]), @ret[:value]
       STDERR.puts ret.inspect if obj.global.debug
       if obj.global.format == 'csv'
-        puts [value,uri].join ','
+        puts [secret_value,uri].join ','
       else
-        msg = "Your secret (hit return to continue): %s " % value
+        msg = "Your secret (hit return to continue): %s " % secret_value
         eraser = "\e[K\r%s" % [uri]  # \e[K\r
         print msg
         begin
