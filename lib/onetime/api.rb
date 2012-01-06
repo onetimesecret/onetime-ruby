@@ -1,5 +1,19 @@
+
+
 require 'httparty'
 require 'uri'
+
+begin
+  require 'yajl-ruby'
+rescue LoadError => ex
+  require 'json'
+end
+
+begin
+  require 'yaml'
+rescue LoadError => ex
+end
+
 
 # Onetime::API - v1
 # 
@@ -46,23 +60,28 @@ module Onetime
       opts[:body] = (params || {}).merge default_params
       execute_request :post, path, opts
     end
-    def base_uri path
-      uri = URI.parse self.class.base_uri
-      uri.path = uri_path(path)
-      uri.to_s
-    end
-    def uri_path *args
+    def api_path *args
       args.unshift ['', "v#{apiversion}"] # force leading slash and version
       path = args.flatten.join('/')
       path.gsub '//', '/'
     end
     private
     def execute_request meth, path, opts
-      path = uri_path [path]
+      path = api_path [path]
       @response = self.class.send meth, path, opts
       self.class.indifferent_params @response.parsed_response
     end
     class << self
+      def web_uri *args
+        uri = URI.parse(OT::API.base_uri)
+        uri.path = web_path *args
+        uri
+      end
+      def web_path *args
+        args.unshift [''] # force leading slash
+        path = args.flatten.join('/')
+        path.gsub '//', '/'
+      end
       def indifferent_params(params)
         if params.is_a?(Hash)
           params = indifferent_hash.merge(params)

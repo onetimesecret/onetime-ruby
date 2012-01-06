@@ -10,6 +10,14 @@ class Onetime::CLI
   class Definition
     extend Drydock
     
+    global :c, :custid, String, "Customer ID (e.g. you@yourcompany.com)"
+    global :k, :apikey, String, "API key (e.g. 4eb33c6340006d6607c813fc7e707a32f8bf5342)"
+    global :u, :uri, String, "Base URI (e.g. https://onetimesecret.com/api)"
+    
+    global :f, :format, String, "Output format (json or yaml)"
+    global :j, :json, "Shorthand for -f json"
+    global :y, :yaml, "Shorthand for -f yaml"
+    
     global :D, :debug do
       OT::API.debug_output STDERR
     end
@@ -19,11 +27,67 @@ class Onetime::CLI
       exit 0
     end
     
+    before do |obj|
+      @api = OT::API.new obj.global.custid, obj.global.apikey
+      obj.global.format = 'yaml' if obj.global.yaml
+      obj.global.format = 'json' if obj.global.json
+      obj.global.format = nil if obj.global.format == 'string'
+      if obj.global.format && !['json', 'yaml', 'csv'].member?(obj.global.format)
+        raise RuntimeError, "Unsupported format: #{obj.global.format}"
+      end
+    end
+    
+    after do |obj|
+      case obj.global.format
+      when 'json'
+        puts @ret.to_json
+      when 'yaml'
+        puts @ret.to_yaml
+      end
+    end
+    
+    command :status do |obj|
+      @ret = @api.get '/status'
+      unless obj.global.format
+        puts @ret[:status]
+      end
+    end
+    
+    command :generate do |obj|
+      if (!STDOUT.tty?) && !obj.global.format
+        raise RuntimeError, "No tty. Must specify a format. See #{$0} generate -h"
+      end
+      @ret = @api.post '/generate'
+      uri, value = OT::API.web_uri('secret', @ret[:secret_key]), @ret[:value]
+      STDERR.puts ret.inspect if obj.global.debug
+      if obj.global.format == 'csv'
+        puts [value,uri].join ','
+      else
+        msg = "Your secret (hit return to continue): %s " % value
+        eraser = "\e[K\r%s" % [uri]  # \e[K\r
+        print msg
+        begin
+          old_stty = `stty -g`  # store tty settings
+          system "stty -echo"
+          STDIN.getc
+          system "stty echo"
+          system "stty #{old_stty}" # restore stty settings
+          print eraser
+        rescue Interrupt
+          puts eraser
+        end
+        puts
+      end
+    end
+    
   end
 end
 
 begin
   Drydock.run! ARGV, STDIN
+rescue RuntimeError => ex
+  STDERR.puts ex.message
+  exit 1
 rescue => ex
   puts ex.message
   puts ex.backtrace
