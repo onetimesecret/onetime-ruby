@@ -23,7 +23,7 @@ Gem::Specification.new do |s|
     "bin/onetime",
     "lib/onetime/api.rb"
   ]
-  s.homepage = "http://github.com/delano/otto"
+  s.homepage = "https://github.com/onetimesecret/onetime-ruby"
   s.require_paths = ["lib"]
   s.rubyforge_project = "onetime"
   s.rubygems_version = "1.8.10"

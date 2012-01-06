@@ -56,6 +56,26 @@ class Onetime::CLI
       end
     end
     
+    argv :key
+    command :metadata do |obj|
+      raise RuntimeError, "csv not supported" if obj.global.format == 'csv'
+      raise RuntimeError, "Usage: #{$0} metadata <KEY>" unless obj.argv.key
+      @ret = @api.post '/metadata/%s' % obj.argv.key
+      unless obj.global.format
+        puts @ret.to_yaml
+      end
+    end
+    
+    argv :key
+    command :secret do |obj|
+      raise RuntimeError, "csv not supported" if obj.global.format == 'csv'
+      raise RuntimeError, "Usage: #{$0} secret <KEY>" unless obj.argv.key
+      @ret = @api.post '/secret/%s' % obj.argv.key
+      unless obj.global.format
+        puts @ret.to_yaml
+      end
+    end
+    
     command :share do |obj|
       begin
         if Kernel.select [$stdin], nil, nil, 0
@@ -82,7 +102,7 @@ class Onetime::CLI
       STDERR.puts ret.inspect if obj.global.debug
       if obj.global.format == 'csv'
         puts [secret_value,uri].join ','
-      else
+      elsif obj.global.format.nil?
         msg = "Your secret (hit return to continue): %s " % secret_value
         eraser = "\e[K\r%s" % [uri]  # \e[K\r
         print msg
