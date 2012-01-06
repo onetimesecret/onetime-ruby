@@ -1,0 +1,67 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01//EN" "http://www.w3.org/TR/html4/strict.dtd">
+<html lang='en'>
+  <head>
+    <title>: Onetime [onetime 0.3.1]</title>
+    <meta content='text/html; charset=UTF-8' http-equiv='Content-Type'>
+    <link href='../rdoc-style.css' media='screen' rel='stylesheet' type='text/css'>
+    <script type='text/javascript'>
+      //<![CDATA[
+        function popupCode(url) {
+          window.open(url, "Code", "resizable=yes,scrollbars=yes,toolbar=no,status=no,height=150,width=400")
+        }
+        
+        function toggleCode(id) {
+          var code = document.getElementById(id)
+        
+          code.style.display = code.style.display != 'block' ? 'block' : 'none'
+          return true
+        }
+        
+        // Make codeblocks hidden by default
+        document.writeln('<' + 'style type="text/css">.method .source pre { display: none }<\/style>')
+      //]]>
+    </script>
+  </head>
+  <body class='page'>
+    <div class='class' id='wrapper'>
+      <div class='header'>
+        <h1 class='name'>
+          <span class='type'>Module</span>
+          Onetime
+        </h1>
+        <ol class='paths'>
+          <li>
+            <a href="../files/lib/onetime/api_rb.html">lib/onetime/api.rb</a>
+          </li>
+        </ol>
+      </div>
+      <div id='content'>
+        <div id='text'>
+          <div id='description'>
+            <p>
+            <a href="Onetime/API.html">Onetime::API</a> - v0.3
+            </p>
+            <p>
+            A basic client library for the onetimesecret.com <a
+            href="Onetime/API.html">API</a>.
+            </p>
+            <p>
+            Usage:
+            </p>
+            <pre>api = OT::API.new 'delano@onetimesecret.com', '4eb33c6340006d6607c813fc7e707a32f8bf5342'&#x000A;&#x000A;api.get '/status'&#x000A;  # =&gt; {'status' =&gt; 'nominal'}&#x000A;&#x000A;api.post '/generate', :passphrase =&gt; 'yourspecialpassphrase'&#x000A;  # =&gt; {'value' =&gt; '3Rg8R2sfD3?a', 'metadata_key' =&gt; '...', 'secret_key' =&gt; '...'}</pre>
+          </div>
+          <div id='section'>
+            <div id='class-list'>
+              <h2>Classes and Modules</h2>
+              Class <a href="Onetime/API.html" class="link">Onetime::API</a><br />
+            </div>
+          </div>
+        </div>
+      </div>
+      <div id='footer-push'></div>
+    </div>
+    <div id='footer'>
+      <a href="http://github.com/mislav/hanna/tree/master"><strong>Hanna</strong> RDoc template</a>
+    </div>
+  </body>
+</html>
