@@ -31,10 +31,26 @@ end
 #       
 module Onetime
   class API
+    module VERSION
+      def self.to_s
+        load_config
+        [@version[:MAJOR], @version[:MINOR], @version[:PATCH]].join('.')
+      end
+      def self.inspect
+        to_s
+      end
+      def self.load_config
+        require 'yaml'
+        @version ||= YAML.load_file(File.join(LIB_HOME, '..', '..', 'VERSION.yml'))
+      end
+    end
+  end
+  class API
     include HTTParty
     LIB_HOME = File.expand_path File.dirname(__FILE__) unless defined?(Onetime::API::LIB_HOME)
     base_uri 'https://onetimesecret.com/api'
     format :json
+    headers 'X-Onetime-Client' => Onetime::API::VERSION.to_s
     attr_reader :opts, :response, :custid, :key, :default_params
     attr_accessor :apiversion
     def initialize custid=nil, key=nil, opts={}
@@ -103,21 +119,6 @@ module Onetime
         Hash.new {|hash,key| hash[key.to_s] if Symbol === key }
       end
     end
-    
-    module VERSION
-      def self.to_s
-        load_config
-        [@version[:MAJOR], @version[:MINOR], @version[:PATCH]].join('.')
-      end
-      def self.inspect
-        to_s
-      end
-      def self.load_config
-        require 'yaml'
-        @version ||= YAML.load_file(File.join(LIB_HOME, '..', '..', 'VERSION.yml'))
-      end
-    end
-    
   end
 end
 OT = Onetime unless defined?(OT)

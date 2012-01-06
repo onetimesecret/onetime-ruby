@@ -102,7 +102,7 @@ class Onetime::CLI
     command :generate do |obj|
       @ret = @api.post '/generate'
       uri, secret_value = OT::API.web_uri('secret', @ret[:secret_key]), @ret[:value]
-      STDERR.puts ret.inspect if obj.global.debug
+      STDERR.puts @ret.inspect if obj.global.debug
       if obj.global.format == 'csv'
         puts [secret_value,uri].join ','
       elsif obj.global.format.nil?
