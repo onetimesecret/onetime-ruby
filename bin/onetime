@@ -1,0 +1,31 @@
+#!/usr/bin/ruby
+
+base_path = File.expand_path File.join(File.dirname(__FILE__), '..')
+$:.unshift File.join(base_path, 'lib')
+
+require 'onetime/api'
+require 'drydock'
+
+class Onetime::CLI
+  class Definition
+    extend Drydock
+    
+    global :D, :debug do
+      OT::API.debug_output STDERR
+    end
+    
+    global :V, :version do
+      puts OT::API::VERSION
+      exit 0
+    end
+    
+  end
+end
+
+begin
+  Drydock.run! ARGV, STDIN
+rescue => ex
+  puts ex.message
+  puts ex.backtrace
+  exit 1
+end
