@@ -23,6 +23,7 @@ begin
     gem.homepage = "https://github.com/onetimesecret/onetime-ruby"
     gem.authors = ["Delano Mandelbaum"]
     gem.add_dependency('drydock',       '>= 0.6.9')
+    gem.add_dependency('httparty',      '>= 0.7.7')
     gem.add_dependency('json',          '>= 1.6.4')
   end
   Jeweler::GemcutterTasks.new

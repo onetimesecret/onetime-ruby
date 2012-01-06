@@ -106,7 +106,7 @@ class Onetime::CLI
       if obj.global.format == 'csv'
         puts [secret_value,uri].join ','
       elsif obj.global.format.nil?
-        msg = "Your secret (hit return to continue): %s " % secret_value
+        msg = 'Your secret (hit return to continue): %s' % secret_value
         eraser = "\e[K\r%s" % [uri]  # \e[K\r
         print msg
         begin
