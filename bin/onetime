@@ -70,11 +70,11 @@ class Onetime::CLI
           old_stty = `stty -g`  # store tty settings
           system "stty -echo"
           STDIN.getc
+        rescue Interrupt
+        ensure
           system "stty echo"
           system "stty #{old_stty}" # restore stty settings
           print eraser
-        rescue Interrupt
-          puts eraser
         end
         puts
       end
