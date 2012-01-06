@@ -17,13 +17,13 @@ begin
     gem.name = name
     gem.executables = ['onetime']
     gem.rubyforge_project = gem.name
-    gem.summary = "Auto-define your rack-apps in plaintext."
-    gem.description = "Auto-define your rack-apps in plaintext."
-    gem.email = "delano@solutious.com"
-    gem.homepage = "http://github.com/delano/otto"
+    gem.summary = "CLI tool and Ruby library for onetimesecret.com"
+    gem.description = "CLI tool and Ruby library for onetimesecret.com"
+    gem.email = "delano@onetimesecret.com"
+    gem.homepage = "https://github.com/onetimesecret/onetime-ruby"
     gem.authors = ["Delano Mandelbaum"]
-    gem.add_dependency('rack',          '>= 1.2.1')
-    gem.add_dependency('addressable',    '>= 2.2.6')
+    gem.add_dependency('drydock',       '>= 0.6.9')
+    gem.add_dependency('json',          '>= 1.6.4')
   end
   Jeweler::GemcutterTasks.new
 rescue LoadError

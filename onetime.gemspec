@@ -10,8 +10,9 @@ Gem::Specification.new do |s|
   s.required_rubygems_version = Gem::Requirement.new(">= 0") if s.respond_to? :required_rubygems_version=
   s.authors = ["Delano Mandelbaum"]
   s.date = "2012-01-06"
-  s.description = "Auto-define your rack-apps in plaintext."
-  s.email = "delano@solutious.com"
+  s.description = "CLI tool and Ruby library for onetimesecret.com"
+  s.email = "delano@onetimesecret.com"
+  s.executables = ["onetime"]
   s.extra_rdoc_files = [
     "LICENSE.txt"
   ]
@@ -21,27 +22,28 @@ Gem::Specification.new do |s|
     "Rakefile",
     "VERSION.yml",
     "bin/onetime",
-    "lib/onetime/api.rb"
+    "lib/onetime/api.rb",
+    "onetime.gemspec"
   ]
   s.homepage = "https://github.com/onetimesecret/onetime-ruby"
   s.require_paths = ["lib"]
   s.rubyforge_project = "onetime"
   s.rubygems_version = "1.8.10"
-  s.summary = "Auto-define your rack-apps in plaintext."
+  s.summary = "CLI tool and Ruby library for onetimesecret.com"
 
   if s.respond_to? :specification_version then
     s.specification_version = 3
 
     if Gem::Version.new(Gem::VERSION) >= Gem::Version.new('1.2.0') then
-      s.add_runtime_dependency(%q<rack>, [">= 1.2.1"])
-      s.add_runtime_dependency(%q<addressable>, [">= 2.2.6"])
+      s.add_runtime_dependency(%q<drydock>, [">= 0.6.9"])
+      s.add_runtime_dependency(%q<json>, [">= 1.6.4"])
     else
-      s.add_dependency(%q<rack>, [">= 1.2.1"])
-      s.add_dependency(%q<addressable>, [">= 2.2.6"])
+      s.add_dependency(%q<drydock>, [">= 0.6.9"])
+      s.add_dependency(%q<json>, [">= 1.6.4"])
     end
   else
-    s.add_dependency(%q<rack>, [">= 1.2.1"])
-    s.add_dependency(%q<addressable>, [">= 2.2.6"])
+    s.add_dependency(%q<drydock>, [">= 0.6.9"])
+    s.add_dependency(%q<json>, [">= 1.6.4"])
   end
 end
 
