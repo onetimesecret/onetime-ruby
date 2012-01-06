@@ -10,6 +10,8 @@ class Onetime::CLI
   class Definition
     extend Drydock
     
+    default :share
+    
     global :c, :custid, String, "Customer ID (e.g. you@yourcompany.com)"
     global :k, :apikey, String, "API key (e.g. 4eb33c6340006d6607c813fc7e707a32f8bf5342)"
     global :u, :uri, String, "Base URI (e.g. https://onetimesecret.com/api)"
@@ -83,6 +85,7 @@ class Onetime::CLI
         else
           STDERR.puts "Paste secret here (hit control-D to continue):"
           secret_value = ARGF.read
+          STDERR.puts "Generating link..."
         end
       rescue Interrupt => ex
         puts "Exiting..."
