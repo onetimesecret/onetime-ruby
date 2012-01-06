@@ -15,7 +15,7 @@ rescue LoadError => ex
 end
 
 
-# Onetime::API - v1
+# Onetime::API - v0.3
 # 
 # A basic client library for the onetimesecret.com API. 
 #
@@ -45,7 +45,7 @@ module Onetime
       @opts = opts
       @default_params = {}
       @custid = custid || ENV['ONETIME_ACCOUNT']
-      @key = key || ENV['ONETIME_TOKEN']
+      @key = key || ENV['ONETIME_APIKEY']
       unless @custid.to_s.empty? || @key.to_s.empty?
         opts[:basic_auth] ||= { :username => @custid, :password => @key }
       end
