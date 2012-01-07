@@ -60,7 +60,7 @@ module Onetime
       @apiversion = opts.delete(:apiversion) || opts.delete('apiversion') || 1
       @opts = opts
       @default_params = {}
-      @custid = custid || ENV['ONETIME_ACCOUNT']
+      @custid = custid || ENV['ONETIME_CUSTID']
       @key = key || ENV['ONETIME_APIKEY']
       unless @custid.to_s.empty? || @key.to_s.empty?
         opts[:basic_auth] ||= { :username => @custid, :password => @key }
