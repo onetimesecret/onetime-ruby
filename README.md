@@ -25,7 +25,7 @@ And you can read from a file:
     $ <path/2/file onetime
     https://onetimesecret.com/secret/8f8k3ajhax87ctln3h6y11nsb4vf0wq
     
-*Note that we don't use `cat` in that example! Don't want to provoke the [ire of Randal L. Schwartz](http://partmaps.org/era/unix/award.html)* 
+*Note that we don't use `cat` in that example! We don't want to provoke the [ire of Randal L. Schwartz](http://partmaps.org/era/unix/award.html).*
 
 
 ### onetime generate ###
@@ -33,18 +33,20 @@ And you can read from a file:
     $ onetime generate
     Your secret: CttenFwzVpjs
     https://onetimesecret.com/secret/er5djg1wodsp5m32oyym489bnuhsfp6
-    
+
+
 ## Output Format ##
 
 `onetime` also supports YAML, JSON, and to a limited extent CSV outputs. Specify the format using the `-f ` global option:
     
     $ onetime -f yaml generate
+    ---
     value: MhYcuge9VxtX
     metadata_key: 4j1122kpd6clemp80gpobu9xfxsp7zu
     secret_key: 8f8k3ajhax87ctln3h6y11nsb4vf0wq
     ttl: 172800
     passphrase_required: false
-
+    
 ## Installation ###
 
     $ [sudo] gem install onetime
@@ -55,6 +57,8 @@ And you can read from a file:
 * [Codes](https://github.com/onetimesecret/onetime-ruby)
 * [Rubgems](https://rubygems.org/gems/onetime)
 * [One-Time Secret](https://onetimesecret.com/)
+
+See also:
 
     $ onetime -h
     $ onetime show-commands

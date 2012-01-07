@@ -5,20 +5,22 @@
 
 Gem::Specification.new do |s|
   s.name = "onetime"
-  s.version = "0.3.0"
+  s.version = "0.4.0"
 
   s.required_rubygems_version = Gem::Requirement.new(">= 0") if s.respond_to? :required_rubygems_version=
   s.authors = ["Delano Mandelbaum"]
-  s.date = "2012-01-06"
+  s.date = "2012-01-07"
   s.description = "CLI tool and Ruby library for onetimesecret.com"
   s.email = "delano@onetimesecret.com"
   s.executables = ["onetime"]
   s.extra_rdoc_files = [
-    "LICENSE.txt"
+    "LICENSE.txt",
+    "README.md"
   ]
   s.files = [
     "CHANGES.txt",
     "LICENSE.txt",
+    "README.md",
     "Rakefile",
     "VERSION.yml",
     "bin/onetime",
@@ -36,13 +38,16 @@ Gem::Specification.new do |s|
 
     if Gem::Version.new(Gem::VERSION) >= Gem::Version.new('1.2.0') then
       s.add_runtime_dependency(%q<drydock>, [">= 0.6.9"])
+      s.add_runtime_dependency(%q<httparty>, [">= 0.7.7"])
       s.add_runtime_dependency(%q<json>, [">= 1.6.4"])
     else
       s.add_dependency(%q<drydock>, [">= 0.6.9"])
+      s.add_dependency(%q<httparty>, [">= 0.7.7"])
       s.add_dependency(%q<json>, [">= 1.6.4"])
     end
   else
     s.add_dependency(%q<drydock>, [">= 0.6.9"])
+    s.add_dependency(%q<httparty>, [">= 0.7.7"])
     s.add_dependency(%q<json>, [">= 1.6.4"])
   end
 end
