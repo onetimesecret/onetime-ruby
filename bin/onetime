@@ -52,6 +52,7 @@ class Onetime::CLI
       end
     end
     
+    usage "onetime status"
     command :status do |obj|
       @res = @api.get '/status'
       if @res.nil?
@@ -68,6 +69,7 @@ class Onetime::CLI
     end
     
     argv :key
+    usage "onetime metadata <KEY>"
     command :metadata do |obj|
       raise RuntimeError, "csv not supported" if obj.global.format == 'csv'
       raise RuntimeError, "Usage: #{$0} metadata <KEY>" unless obj.argv.key
@@ -84,6 +86,8 @@ class Onetime::CLI
     
     option :p, :passphrase, String, "Passphrase to decrypt the secret (only required if one was provided to you)"
     argv :key
+    usage "onetime secret <KEY>"
+    usage "onetime secret [-p PASSPHRASE] <KEY>"
     command :secret do |obj|
       raise RuntimeError, "csv not supported" if obj.global.format == 'csv'
       raise RuntimeError, "Usage: #{$0} secret <KEY>" unless obj.argv.key
@@ -101,10 +105,12 @@ class Onetime::CLI
     end
     
     usage "onetime share"
+    usage "onetime share [-t 3600] [-p PASSPHRASE]"
     usage "echo 'your secret' | onetime share"
     usage "<path/2/file onetime share"
     option :t, :ttl, Integer, "Time-to-live in seconds"
     option :p, :passphrase, String, "Passphrase to encrypt the secret (something only you and recipient know)"
+    option :r, :recipient, Array, "Email address to deliver the secret link"
     command :share do |obj|
       begin
         if Kernel.select [$stdin], nil, nil, 0
@@ -119,7 +125,7 @@ class Onetime::CLI
         exit 0
       end
       raise RuntimeError, "No secret provided" if secret_value.chomp.empty?
-      opts = { :secret => secret_value, :ttl => obj.option.ttl }
+      opts = { :secret => secret_value, :ttl => obj.option.ttl, :recipient => obj.option.recipient }
       opts[:passphrase] = obj.option.passphrase if obj.option.passphrase
       @res = @api.post '/share', opts
       if @res.nil?
@@ -134,10 +140,12 @@ class Onetime::CLI
     end
     
     usage "onetime generate"
+    usage "onetime generate [-t 3600] [-p PASSPHRASE]"
     option :t, :ttl, Integer, "Time-to-live in seconds"
     option :p, :passphrase, String, "Passphrase to encrypt the secret (something only you and recipient know)"
+    option :r, :recipient, Array, "Email address to deliver the secret link"
     command :generate do |obj|
-      opts = { :ttl => obj.option.ttl }
+      opts = { :ttl => obj.option.ttl, :recipient => obj.option.recipient }
       opts[:passphrase] = obj.option.passphrase if obj.option.passphrase
       @res = @api.post '/generate', opts
       if @res.nil?
