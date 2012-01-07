@@ -51,7 +51,7 @@ module Onetime
     base_uri 'https://onetimesecret.com/api'
     format :json
     headers 'X-Onetime-Client' => Onetime::API::VERSION.to_s
-    attr_reader :opts, :response, :custid, :key, :default_params
+    attr_reader :opts, :response, :custid, :key, :default_params, :anonymous
     attr_accessor :apiversion
     def initialize custid=nil, key=nil, opts={}
       unless ENV['ONETIME_HOST'].to_s.empty?
@@ -63,11 +63,12 @@ module Onetime
       @custid = custid || ENV['ONETIME_CUSTID']
       @key = key || ENV['ONETIME_APIKEY']
       if @custid.to_s.empty? && @key.to_s.empty?
-        # anonymous access
+        @anonymous = true
       elsif @custid.to_s.empty? || @key.to_s.empty?
         raise RuntimeError, "You provided a custid without an apikey" if @key.to_s.empty?
         raise RuntimeError, "You provided an apikey without a custid" if @custid.to_s.empty?
       else
+        @anonymous = false
         opts[:basic_auth] ||= { :username => @custid, :password => @key }
       end
     end

@@ -54,9 +54,16 @@ class Onetime::CLI
     
     command :status do |obj|
       @res = @api.get '/status'
-      raise RuntimeError, 'Could not complete request' if @res.nil?
+      if @res.nil?
+        raise RuntimeError, 'Could not complete request' 
+      elsif @api.response.code != 200
+        raise RuntimeError, @res['message']
+      end
       unless obj.global.format
-        puts @res[:status]
+        msg = @api.anonymous ? 'Anonymous' : @api.custid
+        puts '# Host: %s' % OT::API.base_uri
+        puts '# Account: %s' % msg
+        puts 'Service Status: %s' % @res[:status]
       end
     end
     
@@ -65,7 +72,11 @@ class Onetime::CLI
       raise RuntimeError, "csv not supported" if obj.global.format == 'csv'
       raise RuntimeError, "Usage: #{$0} metadata <KEY>" unless obj.argv.key
       @res = @api.post '/metadata/%s' % obj.argv.key
-      raise RuntimeError, 'Could not complete request' if @res.nil?
+      if @res.nil?
+        raise RuntimeError, 'Could not complete request' 
+      elsif @api.response.code != 200
+        raise RuntimeError, @res['message']
+      end
       unless obj.global.format
         puts @res.to_yaml
       end
@@ -79,7 +90,11 @@ class Onetime::CLI
       opts = {}
       opts[:passphrase] = obj.option.passphrase if obj.option.passphrase
       @res = @api.post '/secret/%s' % [obj.argv.key], opts
-      raise RuntimeError, 'Could not complete request' if @res.nil?
+      if @res.nil?
+        raise RuntimeError, 'Could not complete request' 
+      elsif @api.response.code != 200
+        raise RuntimeError, @res['message']
+      end
       unless obj.global.format
         puts @res.to_yaml
       end
