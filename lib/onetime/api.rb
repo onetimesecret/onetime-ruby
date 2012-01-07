@@ -62,7 +62,10 @@ module Onetime
       @default_params = {}
       @custid = custid || ENV['ONETIME_CUSTID']
       @key = key || ENV['ONETIME_APIKEY']
-      unless @custid.to_s.empty? || @key.to_s.empty?
+      if @custid.to_s.empty? || @key.to_s.empty?
+        raise RuntimeError, "You provided a custid without an apikey" if @key.to_s.empty?
+        raise RuntimeError, "You provided an apikey without a custid" if @custid.to_s.empty?
+      else
         opts[:basic_auth] ||= { :username => @custid, :password => @key }
       end
     end

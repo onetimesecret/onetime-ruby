@@ -30,6 +30,7 @@ class Onetime::CLI
     end
     
     before do |obj|
+      OT::API.base_uri obj.global.H if obj.global.H
       @api = OT::API.new obj.global.custid, obj.global.apikey
       obj.global.format = 'yaml' if obj.global.yaml
       obj.global.format = 'json' if obj.global.json
@@ -45,16 +46,17 @@ class Onetime::CLI
     after do |obj|
       case obj.global.format
       when 'json'
-        puts @ret.to_json
+        puts @res.to_json
       when 'yaml'
-        puts @ret.to_yaml
+        puts @res.to_yaml
       end
     end
     
     command :status do |obj|
-      @ret = @api.get '/status'
+      @res = @api.get '/status'
+      raise RuntimeError, 'Could not complete request' if @res.nil?
       unless obj.global.format
-        puts @ret[:status]
+        puts @res[:status]
       end
     end
     
@@ -62,9 +64,10 @@ class Onetime::CLI
     command :metadata do |obj|
       raise RuntimeError, "csv not supported" if obj.global.format == 'csv'
       raise RuntimeError, "Usage: #{$0} metadata <KEY>" unless obj.argv.key
-      @ret = @api.post '/metadata/%s' % obj.argv.key
+      @res = @api.post '/metadata/%s' % obj.argv.key
+      raise RuntimeError, 'Could not complete request' if @res.nil?
       unless obj.global.format
-        puts @ret.to_yaml
+        puts @res.to_yaml
       end
     end
     
@@ -72,9 +75,10 @@ class Onetime::CLI
     command :secret do |obj|
       raise RuntimeError, "csv not supported" if obj.global.format == 'csv'
       raise RuntimeError, "Usage: #{$0} secret <KEY>" unless obj.argv.key
-      @ret = @api.post '/secret/%s' % obj.argv.key
+      @res = @api.post '/secret/%s' % obj.argv.key
+      raise RuntimeError, 'Could not complete request' if @res.nil?
       unless obj.global.format
-        puts @ret.to_yaml
+        puts @res.to_yaml
       end
     end
     
@@ -92,17 +96,19 @@ class Onetime::CLI
         exit 0
       end
       raise RuntimeError, "No secret provided" if secret_value.chomp.empty?
-      @ret = @api.post '/share', :secret => secret_value
-      uri = OT::API.web_uri('secret', @ret[:secret_key])
+      @res = @api.post '/share', :secret => secret_value
+      raise RuntimeError, 'Could not complete request' if @res.nil?
+      uri = OT::API.web_uri('secret', @res[:secret_key])
       if obj.global.format == 'csv' || obj.global.format.nil?
         puts uri
       end
     end
     
     command :generate do |obj|
-      @ret = @api.post '/generate'
-      uri, secret_value = OT::API.web_uri('secret', @ret[:secret_key]), @ret[:value]
-      STDERR.puts @ret.inspect if obj.global.debug
+      @res = @api.post '/generate'
+      raise RuntimeError, 'Could not complete request' if @res.nil?
+      uri, secret_value = OT::API.web_uri('secret', @res[:secret_key]), @res[:value]
+      STDERR.puts @res.inspect if obj.global.debug
       if obj.global.format == 'csv'
         puts [secret_value,uri].join ','
       elsif obj.global.format.nil?

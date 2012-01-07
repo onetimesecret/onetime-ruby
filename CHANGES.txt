@@ -2,8 +2,10 @@ ONETIME, CHANGES
 
 #### 0.4.0 (2012-01-07) ###############################
 
+* ADDED: Better error handling
 * CHANGED: env variable ONETIME_ACCOUNT -> ONETIME_CUSTID
 * CHANGED: global option -u is now -H
+
 
 #### 0.3.1 (2012-01-06) ###############################
 
