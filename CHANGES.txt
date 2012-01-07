@@ -2,6 +2,7 @@ ONETIME, CHANGES
 
 #### 0.4.0 (2012-01-07) ###############################
 
+* ADDED: Support for ttl and passphrase
 * ADDED: Better error handling
 * CHANGED: env variable ONETIME_ACCOUNT -> ONETIME_CUSTID
 * CHANGED: global option -u is now -H

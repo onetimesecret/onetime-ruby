@@ -71,17 +71,25 @@ class Onetime::CLI
       end
     end
     
+    option :p, :passphrase, String, "Passphrase to decrypt the secret (only required if one was provided to you)"
     argv :key
     command :secret do |obj|
       raise RuntimeError, "csv not supported" if obj.global.format == 'csv'
       raise RuntimeError, "Usage: #{$0} secret <KEY>" unless obj.argv.key
-      @res = @api.post '/secret/%s' % obj.argv.key
+      opts = {}
+      opts[:passphrase] = obj.option.passphrase if obj.option.passphrase
+      @res = @api.post '/secret/%s' % [obj.argv.key], opts
       raise RuntimeError, 'Could not complete request' if @res.nil?
       unless obj.global.format
         puts @res.to_yaml
       end
     end
     
+    usage "onetime share"
+    usage "echo 'your secret' | onetime share"
+    usage "<path/2/file onetime share"
+    option :t, :ttl, Integer, "Time-to-live in seconds"
+    option :p, :passphrase, String, "Passphrase to encrypt the secret (something only you and recipient know)"
     command :share do |obj|
       begin
         if Kernel.select [$stdin], nil, nil, 0
@@ -96,7 +104,9 @@ class Onetime::CLI
         exit 0
       end
       raise RuntimeError, "No secret provided" if secret_value.chomp.empty?
-      @res = @api.post '/share', :secret => secret_value
+      opts = { :secret => secret_value, :ttl => obj.option.ttl }
+      opts[:passphrase] = obj.option.passphrase if obj.option.passphrase
+      @res = @api.post '/share', opts
       if @res.nil?
         raise RuntimeError, 'Could not complete request' 
       elsif @api.response.code != 200
@@ -108,8 +118,13 @@ class Onetime::CLI
       end
     end
     
+    usage "onetime generate"
+    option :t, :ttl, Integer, "Time-to-live in seconds"
+    option :p, :passphrase, String, "Passphrase to encrypt the secret (something only you and recipient know)"
     command :generate do |obj|
-      @res = @api.post '/generate'
+      opts = { :ttl => obj.option.ttl }
+      opts[:passphrase] = obj.option.passphrase if obj.option.passphrase
+      @res = @api.post '/generate', opts
       if @res.nil?
         raise RuntimeError, 'Could not complete request' 
       elsif @api.response.code != 200
