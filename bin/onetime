@@ -62,8 +62,8 @@ class Onetime::CLI
       end
       unless obj.global.format
         msg = @api.anonymous ? 'Anonymous' : @api.custid
-        puts '# Host: %s' % OT::API.base_uri
-        puts '# Account: %s' % msg
+        STDERR.puts '# Host: %s' % OT::API.base_uri
+        STDERR.puts '# Account: %s' % msg
         puts 'Service Status: %s' % @res[:status]
       end
     end
@@ -135,7 +135,11 @@ class Onetime::CLI
       end
       uri = OT::API.web_uri('secret', @res[:secret_key])
       if obj.global.format == 'csv' || obj.global.format.nil?
-        puts uri
+        if @res[:recipient] && !@res[:recipient].compact.empty?
+          STDERR.puts '# Secret link sent to: %s' % @res[:recipient].join(',')
+        else
+          puts uri
+        end
       end
     end
     
@@ -159,6 +163,9 @@ class Onetime::CLI
         puts [secret_value,uri].join ','
       elsif obj.global.format.nil?
         msg = 'Your secret (hit return to continue): %s' % secret_value
+        if @res[:recipient] && !@res[:recipient].compact.empty?
+          uri = "\e[K\r# Secret link sent to: %s" % [@res[:recipient].join(',').ljust(40, ' ')]
+        end
         eraser = "\e[K\r%s" % [uri]  # \e[K\r
         print msg
         # Check for tty b/c if we're receiving data via STDIN, even if
