@@ -9,8 +9,9 @@ Gem::Specification.new do |s|
 
   s.required_rubygems_version = Gem::Requirement.new(">= 0") if s.respond_to? :required_rubygems_version=
   s.authors = ["Delano Mandelbaum"]
-  s.date = "2012-01-07"
-  s.description = "CLI tool and Ruby library for onetimesecret.com"
+  s.cert_chain = ["gem-public_cert.pem"]
+  s.date = "2013-02-12"
+  s.description = "Command-line tool and library for onetimesecret.com API"
   s.email = "delano@onetimesecret.com"
   s.executables = ["onetime"]
   s.extra_rdoc_files = [
@@ -22,16 +23,16 @@ Gem::Specification.new do |s|
     "LICENSE.txt",
     "README.md",
     "Rakefile",
-    "VERSION.yml",
+    "VERSION",
     "bin/onetime",
     "lib/onetime/api.rb",
     "onetime.gemspec"
   ]
   s.homepage = "https://github.com/onetimesecret/onetime-ruby"
   s.require_paths = ["lib"]
-  s.rubyforge_project = "onetime"
-  s.rubygems_version = "1.8.10"
-  s.summary = "CLI tool and Ruby library for onetimesecret.com"
+  s.rubygems_version = "1.8.25"
+  s.signing_key = "/mnt/gem/gem-private_key.pem"
+  s.summary = "Command-line tool and library for onetimesecret.com API"
 
   if s.respond_to? :specification_version then
     s.specification_version = 3
@@ -39,16 +40,16 @@ Gem::Specification.new do |s|
     if Gem::Version.new(Gem::VERSION) >= Gem::Version.new('1.2.0') then
       s.add_runtime_dependency(%q<drydock>, [">= 0.6.9"])
       s.add_runtime_dependency(%q<httparty>, [">= 0.7.7"])
-      s.add_runtime_dependency(%q<json>, [">= 1.6.4"])
+      s.add_runtime_dependency(%q<json>, [">= 1.6.8"])
     else
       s.add_dependency(%q<drydock>, [">= 0.6.9"])
       s.add_dependency(%q<httparty>, [">= 0.7.7"])
-      s.add_dependency(%q<json>, [">= 1.6.4"])
+      s.add_dependency(%q<json>, [">= 1.6.8"])
     end
   else
     s.add_dependency(%q<drydock>, [">= 0.6.9"])
     s.add_dependency(%q<httparty>, [">= 0.7.7"])
-    s.add_dependency(%q<json>, [">= 1.6.4"])
+    s.add_dependency(%q<json>, [">= 1.6.8"])
   end
 end
 
