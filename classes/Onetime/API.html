@@ -1,9 +1,9 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01//EN" "http://www.w3.org/TR/html4/strict.dtd">
 <html lang='en'>
   <head>
-    <title>: Onetime::API [onetime 0.4.0]</title>
-    <meta content='text/html; charset=UTF-8' http-equiv='Content-Type'>
-    <link href='../../rdoc-style.css' media='screen' rel='stylesheet' type='text/css'>
+    <title>Onetime::API</title>
+    <meta content='text/html; charset=US-ASCII' http-equiv='Content-Type'>
+    <link href='../../css/style.css' media='screen' rel='stylesheet' type='text/css'>
     <script type='text/javascript'>
       //<![CDATA[
         function popupCode(url) {
@@ -26,32 +26,40 @@
     <div class='class' id='wrapper'>
       <div class='header'>
         <h1 class='name'>
-          <span class='type'>Class</span>
+          <span class='type'>class</span>
           Onetime::API
         </h1>
         <ol class='paths'>
           <li>
-            <a href="../../files/lib/onetime/api_rb.html">lib/onetime/api.rb</a>
+            <a target="docwin" href="../../files/lib/onetime/api_rb.html">lib/onetime/api.rb</a>
           </li>
         </ol>
         <div class='parent'>
           Parent:
-          <strong>Object</strong>
+          <strong><a target="docwin" href="../Onetime.html">Onetime</a></strong>
         </div>
       </div>
       <div id='content'>
         <div id='text'>
+          <div id='description'></div>
           <div id='method-list'>
             <h2>Methods</h2>
-            <h3>public class</h3>
+            <h3>Public Class</h3>
             <ol>
-              <li><a href="#M000001">new</a></li>
+              <li><a target="docwin" href="#method-c-new">new</a></li>
             </ol>
-            <h3>public instance</h3>
+            <h3>Public Instance</h3>
             <ol>
-              <li><a href="#M000004">api_path</a></li>
-              <li><a href="#M000002">get</a></li>
-              <li><a href="#M000003">post</a></li>
+              <li><a target="docwin" href="#attribute-i-anonymous">anonymous</a></li>
+              <li><a target="docwin" href="#method-i-api_path">api_path</a></li>
+              <li><a target="docwin" href="#attribute-i-apiversion">apiversion</a></li>
+              <li><a target="docwin" href="#attribute-i-custid">custid</a></li>
+              <li><a target="docwin" href="#attribute-i-default_params">default_params</a></li>
+              <li><a target="docwin" href="#method-i-get">get</a></li>
+              <li><a target="docwin" href="#attribute-i-key">key</a></li>
+              <li><a target="docwin" href="#attribute-i-opts">opts</a></li>
+              <li><a target="docwin" href="#method-i-post">post</a></li>
+              <li><a target="docwin" href="#attribute-i-response">response</a></li>
             </ol>
           </div>
           <div id='context'>
@@ -62,19 +70,23 @@
               </ol>
             </div>
           </div>
+          <div id='class-list'>
+            <h2>Classes and Modules</h2>
+            <ol>
+              <li><a target="docwin" href="API/VERSION.html">Onetime::API::VERSION</a></li>
+            </ol>
+          </div>
           <div id='section'>
-            <div id='class-list'>
-              <h2>Classes and Modules</h2>
-              Module <a href="API/VERSION.html" class="link">Onetime::API::VERSION</a><br />
-            </div>
             <div id='constants-list'>
               <h2>Constants</h2>
               <div class='name-list'>
                 <table summary='Constants'>
                   <tr class='top-aligned-row context-row'>
-                    <td class='context-item-name'>LIB_HOME</td>
+                    <td class='context-item-name'>HOME</td>
                     <td>=</td>
-                    <td class='context-item-value'>File.expand_path File.dirname(__FILE__) unless defined?(Onetime::API::LIB_HOME)</td>
+                    <td class='context-item-value'>File.expand_path File.join(File.dirname(__FILE__), '..', '..')</td>
+                    <td>&nbsp;</td>
+                    <td class='context-item-desc'></td>
                   </tr>
                 </table>
               </div>
@@ -84,37 +96,51 @@
               <div class='name-list'>
                 <table>
                   <tr class='top-aligned-row context-row'>
-                    <td class='context-item-name'>anonymous</td>
+                    <td class='context-item-name'>
+                      <a name='attribute-i-anonymous'>anonymous</a>
+                    </td>
                     <td class='context-item-value'>[R]</td>
                     <td class='context-item-desc'></td>
                   </tr>
                   <tr class='top-aligned-row context-row'>
-                    <td class='context-item-name'>apiversion</td>
+                    <td class='context-item-name'>
+                      <a name='attribute-i-apiversion'>apiversion</a>
+                    </td>
                     <td class='context-item-value'>[RW]</td>
                     <td class='context-item-desc'></td>
                   </tr>
                   <tr class='top-aligned-row context-row'>
-                    <td class='context-item-name'>custid</td>
+                    <td class='context-item-name'>
+                      <a name='attribute-i-custid'>custid</a>
+                    </td>
                     <td class='context-item-value'>[R]</td>
                     <td class='context-item-desc'></td>
                   </tr>
                   <tr class='top-aligned-row context-row'>
-                    <td class='context-item-name'>default_params</td>
+                    <td class='context-item-name'>
+                      <a name='attribute-i-default_params'>default_params</a>
+                    </td>
                     <td class='context-item-value'>[R]</td>
                     <td class='context-item-desc'></td>
                   </tr>
                   <tr class='top-aligned-row context-row'>
-                    <td class='context-item-name'>key</td>
+                    <td class='context-item-name'>
+                      <a name='attribute-i-key'>key</a>
+                    </td>
                     <td class='context-item-value'>[R]</td>
                     <td class='context-item-desc'></td>
                   </tr>
                   <tr class='top-aligned-row context-row'>
-                    <td class='context-item-name'>opts</td>
+                    <td class='context-item-name'>
+                      <a name='attribute-i-opts'>opts</a>
+                    </td>
                     <td class='context-item-value'>[R]</td>
                     <td class='context-item-desc'></td>
                   </tr>
                   <tr class='top-aligned-row context-row'>
-                    <td class='context-item-name'>response</td>
+                    <td class='context-item-name'>
+                      <a name='attribute-i-response'>response</a>
+                    </td>
                     <td class='context-item-value'>[R]</td>
                     <td class='context-item-desc'></td>
                   </tr>
@@ -122,58 +148,70 @@
               </div>
             </div>
             <div id='methods'>
-              <h2>Public class methods</h2>
-              <div class='method public-class' id='method-M000001'>
-                <a name='M000001'></a>
+              <h2>Public Class methods</h2>
+              <div class='method public-class' id='method-method-c-new'>
+                <a name='method-c-new'></a>
                 <div class='synopsis'>
                   <span class='name'>new</span>
                   <span class='arguments'>(custid=nil, key=nil, opts={})</span>
                 </div>
+                <div class='description'>
+                  
+                </div>
                 <div class='source'>
-                  <a class='source-toggle' href='#' onclick="toggleCode('M000001-source'); return false">
+                  <a class='source-toggle' href='#' onclick="toggleCode('method-c-new-source'); return false">
                     [show source]
                   </a>
-                  <pre id='M000001-source'><span class="ruby-comment cmt"># File lib/onetime/api.rb, line 56</span>&#x000A;    <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">initialize</span> <span class="ruby-identifier">custid</span>=<span class="ruby-keyword kw">nil</span>, <span class="ruby-identifier">key</span>=<span class="ruby-keyword kw">nil</span>, <span class="ruby-identifier">opts</span>={}&#x000A;      <span class="ruby-keyword kw">unless</span> <span class="ruby-constant">ENV</span>[<span class="ruby-value str">'ONETIME_HOST'</span>].<span class="ruby-identifier">to_s</span>.<span class="ruby-identifier">empty?</span>&#x000A;        <span class="ruby-keyword kw">self</span>.<span class="ruby-identifier">class</span>.<span class="ruby-identifier">base_uri</span> <span class="ruby-constant">ENV</span>[<span class="ruby-value str">'ONETIME_HOST'</span>] &#x000A;      <span class="ruby-keyword kw">end</span>&#x000A;      <span class="ruby-ivar">@apiversion</span> = <span class="ruby-identifier">opts</span>.<span class="ruby-identifier">delete</span>(<span class="ruby-identifier">:apiversion</span>) <span class="ruby-operator">||</span> <span class="ruby-identifier">opts</span>.<span class="ruby-identifier">delete</span>(<span class="ruby-value str">'apiversion'</span>) <span class="ruby-operator">||</span> <span class="ruby-value">1</span>&#x000A;      <span class="ruby-ivar">@opts</span> = <span class="ruby-identifier">opts</span>&#x000A;      <span class="ruby-ivar">@default_params</span> = {}&#x000A;      <span class="ruby-ivar">@custid</span> = <span class="ruby-identifier">custid</span> <span class="ruby-operator">||</span> <span class="ruby-constant">ENV</span>[<span class="ruby-value str">'ONETIME_CUSTID'</span>]&#x000A;      <span class="ruby-ivar">@key</span> = <span class="ruby-identifier">key</span> <span class="ruby-operator">||</span> <span class="ruby-constant">ENV</span>[<span class="ruby-value str">'ONETIME_APIKEY'</span>]&#x000A;      <span class="ruby-keyword kw">if</span> <span class="ruby-ivar">@custid</span>.<span class="ruby-identifier">to_s</span>.<span class="ruby-identifier">empty?</span> <span class="ruby-operator">&amp;&amp;</span> <span class="ruby-ivar">@key</span>.<span class="ruby-identifier">to_s</span>.<span class="ruby-identifier">empty?</span>&#x000A;        <span class="ruby-ivar">@anonymous</span> = <span class="ruby-keyword kw">true</span>&#x000A;      <span class="ruby-keyword kw">elsif</span> <span class="ruby-ivar">@custid</span>.<span class="ruby-identifier">to_s</span>.<span class="ruby-identifier">empty?</span> <span class="ruby-operator">||</span> <span class="ruby-ivar">@key</span>.<span class="ruby-identifier">to_s</span>.<span class="ruby-identifier">empty?</span>&#x000A;        <span class="ruby-identifier">raise</span> <span class="ruby-constant">RuntimeError</span>, <span class="ruby-value str">&quot;You provided a custid without an apikey&quot;</span> <span class="ruby-keyword kw">if</span> <span class="ruby-ivar">@key</span>.<span class="ruby-identifier">to_s</span>.<span class="ruby-identifier">empty?</span>&#x000A;        <span class="ruby-identifier">raise</span> <span class="ruby-constant">RuntimeError</span>, <span class="ruby-value str">&quot;You provided an apikey without a custid&quot;</span> <span class="ruby-keyword kw">if</span> <span class="ruby-ivar">@custid</span>.<span class="ruby-identifier">to_s</span>.<span class="ruby-identifier">empty?</span>&#x000A;      <span class="ruby-keyword kw">else</span>&#x000A;        <span class="ruby-ivar">@anonymous</span> = <span class="ruby-keyword kw">false</span>&#x000A;        <span class="ruby-identifier">opts</span>[<span class="ruby-identifier">:basic_auth</span>] <span class="ruby-operator">||=</span> { <span class="ruby-identifier">:username</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-ivar">@custid</span>, <span class="ruby-identifier">:password</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-ivar">@key</span> }&#x000A;      <span class="ruby-keyword kw">end</span>&#x000A;    <span class="ruby-keyword kw">end</span></pre>
+                  <pre id='method-c-new-source'><span class="ruby-comment"># File lib/onetime/api.rb, line 62</span>&#x000A;<span class="ruby-keyword">def</span> <span class="ruby-identifier">initialize</span> <span class="ruby-identifier">custid</span>=<span class="ruby-keyword">nil</span>, <span class="ruby-identifier">key</span>=<span class="ruby-keyword">nil</span>, <span class="ruby-identifier">opts</span>={}&#x000A;  <span class="ruby-keyword">unless</span> <span class="ruby-constant">ENV</span>[<span class="ruby-string">'ONETIME_HOST'</span>].<span class="ruby-identifier">to_s</span>.<span class="ruby-identifier">empty?</span>&#x000A;    <span class="ruby-keyword">self</span>.<span class="ruby-identifier">class</span>.<span class="ruby-identifier">base_uri</span> <span class="ruby-constant">ENV</span>[<span class="ruby-string">'ONETIME_HOST'</span>]&#x000A;  <span class="ruby-keyword">end</span>&#x000A;  <span class="ruby-ivar">@apiversion</span> = <span class="ruby-identifier">opts</span>.<span class="ruby-identifier">delete</span>(<span class="ruby-value">:apiversion</span>) <span class="ruby-operator">||</span> <span class="ruby-identifier">opts</span>.<span class="ruby-identifier">delete</span>(<span class="ruby-string">'apiversion'</span>) <span class="ruby-operator">||</span> <span class="ruby-value">1</span>&#x000A;  <span class="ruby-ivar">@opts</span> = <span class="ruby-identifier">opts</span>&#x000A;  <span class="ruby-ivar">@default_params</span> = {}&#x000A;  <span class="ruby-ivar">@custid</span> = <span class="ruby-identifier">custid</span> <span class="ruby-operator">||</span> <span class="ruby-constant">ENV</span>[<span class="ruby-string">'ONETIME_CUSTID'</span>]&#x000A;  <span class="ruby-ivar">@key</span> = <span class="ruby-identifier">key</span> <span class="ruby-operator">||</span> <span class="ruby-constant">ENV</span>[<span class="ruby-string">'ONETIME_APIKEY'</span>]&#x000A;  <span class="ruby-keyword">if</span> <span class="ruby-ivar">@custid</span>.<span class="ruby-identifier">to_s</span>.<span class="ruby-identifier">empty?</span> <span class="ruby-operator">&amp;&amp;</span> <span class="ruby-ivar">@key</span>.<span class="ruby-identifier">to_s</span>.<span class="ruby-identifier">empty?</span>&#x000A;    <span class="ruby-ivar">@anonymous</span> = <span class="ruby-keyword">true</span>&#x000A;  <span class="ruby-keyword">elsif</span> <span class="ruby-ivar">@custid</span>.<span class="ruby-identifier">to_s</span>.<span class="ruby-identifier">empty?</span> <span class="ruby-operator">||</span> <span class="ruby-ivar">@key</span>.<span class="ruby-identifier">to_s</span>.<span class="ruby-identifier">empty?</span>&#x000A;    <span class="ruby-identifier">raise</span> <span class="ruby-constant">RuntimeError</span>, <span class="ruby-string">&quot;You provided a custid without an apikey&quot;</span> <span class="ruby-keyword">if</span> <span class="ruby-ivar">@key</span>.<span class="ruby-identifier">to_s</span>.<span class="ruby-identifier">empty?</span>&#x000A;    <span class="ruby-identifier">raise</span> <span class="ruby-constant">RuntimeError</span>, <span class="ruby-string">&quot;You provided an apikey without a custid&quot;</span> <span class="ruby-keyword">if</span> <span class="ruby-ivar">@custid</span>.<span class="ruby-identifier">to_s</span>.<span class="ruby-identifier">empty?</span>&#x000A;  <span class="ruby-keyword">else</span>&#x000A;    <span class="ruby-ivar">@anonymous</span> = <span class="ruby-keyword">false</span>&#x000A;    <span class="ruby-identifier">opts</span>[<span class="ruby-value">:basic_auth</span>] <span class="ruby-operator">||=</span> { <span class="ruby-value">:username</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-ivar">@custid</span>, <span class="ruby-value">:password</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-ivar">@key</span> }&#x000A;  <span class="ruby-keyword">end</span>&#x000A;<span class="ruby-keyword">end</span></pre>
                 </div>
               </div>
-              <h2>Public instance methods</h2>
-              <div class='method public-instance' id='method-M000004'>
-                <a name='M000004'></a>
+              <h2>Public Instance methods</h2>
+              <div class='method public-instance' id='method-method-i-api_path'>
+                <a name='method-i-api_path'></a>
                 <div class='synopsis'>
                   <span class='name'>api_path</span>
                   <span class='arguments'>(*args)</span>
                 </div>
+                <div class='description'>
+                  
+                </div>
                 <div class='source'>
-                  <a class='source-toggle' href='#' onclick="toggleCode('M000004-source'); return false">
+                  <a class='source-toggle' href='#' onclick="toggleCode('method-i-api_path-source'); return false">
                     [show source]
                   </a>
-                  <pre id='M000004-source'><span class="ruby-comment cmt"># File lib/onetime/api.rb, line 85</span>&#x000A;    <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">api_path</span> <span class="ruby-operator">*</span><span class="ruby-identifier">args</span>&#x000A;      <span class="ruby-identifier">args</span>.<span class="ruby-identifier">unshift</span> [<span class="ruby-value str">''</span>, <span class="ruby-node">&quot;v#{apiversion}&quot;</span>] <span class="ruby-comment cmt"># force leading slash and version</span>&#x000A;      <span class="ruby-identifier">path</span> = <span class="ruby-identifier">args</span>.<span class="ruby-identifier">flatten</span>.<span class="ruby-identifier">join</span>(<span class="ruby-value str">'/'</span>)&#x000A;      <span class="ruby-identifier">path</span>.<span class="ruby-identifier">gsub</span> <span class="ruby-value str">'//'</span>, <span class="ruby-value str">'/'</span>&#x000A;    <span class="ruby-keyword kw">end</span></pre>
+                  <pre id='method-i-api_path-source'><span class="ruby-comment"># File lib/onetime/api.rb, line 91</span>&#x000A;<span class="ruby-keyword">def</span> <span class="ruby-identifier">api_path</span> *<span class="ruby-identifier">args</span>&#x000A;  <span class="ruby-identifier">args</span>.<span class="ruby-identifier">unshift</span> [<span class="ruby-string">''</span>, <span class="ruby-node">&quot;v#{apiversion}&quot;</span>] <span class="ruby-comment"># force leading slash and version</span>&#x000A;  <span class="ruby-identifier">path</span> = <span class="ruby-identifier">args</span>.<span class="ruby-identifier">flatten</span>.<span class="ruby-identifier">join</span>(<span class="ruby-string">'/'</span>)&#x000A;  <span class="ruby-identifier">path</span>.<span class="ruby-identifier">gsub</span> <span class="ruby-string">'//'</span>, <span class="ruby-string">'/'</span>&#x000A;<span class="ruby-keyword">end</span></pre>
                 </div>
               </div>
-              <div class='method public-instance' id='method-M000002'>
-                <a name='M000002'></a>
+              <div class='method public-instance' id='method-method-i-get'>
+                <a name='method-i-get'></a>
                 <div class='synopsis'>
                   <span class='name'>get</span>
                   <span class='arguments'>(path, params=nil)</span>
                 </div>
+                <div class='description'>
+                  
+                </div>
                 <div class='source'>
-                  <a class='source-toggle' href='#' onclick="toggleCode('M000002-source'); return false">
+                  <a class='source-toggle' href='#' onclick="toggleCode('method-i-get-source'); return false">
                     [show source]
                   </a>
-                  <pre id='M000002-source'><span class="ruby-comment cmt"># File lib/onetime/api.rb, line 75</span>&#x000A;    <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">get</span> <span class="ruby-identifier">path</span>, <span class="ruby-identifier">params</span>=<span class="ruby-keyword kw">nil</span>&#x000A;      <span class="ruby-identifier">opts</span> = <span class="ruby-keyword kw">self</span>.<span class="ruby-identifier">opts</span>.<span class="ruby-identifier">clone</span>&#x000A;      <span class="ruby-identifier">opts</span>[<span class="ruby-identifier">:query</span>] = (<span class="ruby-identifier">params</span> <span class="ruby-operator">||</span> {}).<span class="ruby-identifier">merge</span> <span class="ruby-identifier">default_params</span>&#x000A;      <span class="ruby-identifier">execute_request</span> <span class="ruby-identifier">:get</span>, <span class="ruby-identifier">path</span>, <span class="ruby-identifier">opts</span>&#x000A;    <span class="ruby-keyword kw">end</span></pre>
+                  <pre id='method-i-get-source'><span class="ruby-comment"># File lib/onetime/api.rb, line 81</span>&#x000A;<span class="ruby-keyword">def</span> <span class="ruby-identifier">get</span> <span class="ruby-identifier">path</span>, <span class="ruby-identifier">params</span>=<span class="ruby-keyword">nil</span>&#x000A;  <span class="ruby-identifier">opts</span> = <span class="ruby-keyword">self</span>.<span class="ruby-identifier">opts</span>.<span class="ruby-identifier">clone</span>&#x000A;  <span class="ruby-identifier">opts</span>[<span class="ruby-value">:query</span>] = (<span class="ruby-identifier">params</span> <span class="ruby-operator">||</span> {}).<span class="ruby-identifier">merge</span> <span class="ruby-identifier">default_params</span>&#x000A;  <span class="ruby-identifier">execute_request</span> <span class="ruby-value">:get</span>, <span class="ruby-identifier">path</span>, <span class="ruby-identifier">opts</span>&#x000A;<span class="ruby-keyword">end</span></pre>
                 </div>
               </div>
-              <div class='method public-instance' id='method-M000003'>
-                <a name='M000003'></a>
+              <div class='method public-instance' id='method-method-i-post'>
+                <a name='method-i-post'></a>
                 <div class='synopsis'>
                   <span class='name'>post</span>
                   <span class='arguments'>(path, params=nil)</span>
                 </div>
+                <div class='description'>
+                  
+                </div>
                 <div class='source'>
-                  <a class='source-toggle' href='#' onclick="toggleCode('M000003-source'); return false">
+                  <a class='source-toggle' href='#' onclick="toggleCode('method-i-post-source'); return false">
                     [show source]
                   </a>
-                  <pre id='M000003-source'><span class="ruby-comment cmt"># File lib/onetime/api.rb, line 80</span>&#x000A;    <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">post</span> <span class="ruby-identifier">path</span>, <span class="ruby-identifier">params</span>=<span class="ruby-keyword kw">nil</span>&#x000A;      <span class="ruby-identifier">opts</span> = <span class="ruby-keyword kw">self</span>.<span class="ruby-identifier">opts</span>.<span class="ruby-identifier">clone</span>&#x000A;      <span class="ruby-identifier">opts</span>[<span class="ruby-identifier">:body</span>] = (<span class="ruby-identifier">params</span> <span class="ruby-operator">||</span> {}).<span class="ruby-identifier">merge</span> <span class="ruby-identifier">default_params</span>&#x000A;      <span class="ruby-identifier">execute_request</span> <span class="ruby-identifier">:post</span>, <span class="ruby-identifier">path</span>, <span class="ruby-identifier">opts</span>&#x000A;    <span class="ruby-keyword kw">end</span></pre>
+                  <pre id='method-i-post-source'><span class="ruby-comment"># File lib/onetime/api.rb, line 86</span>&#x000A;<span class="ruby-keyword">def</span> <span class="ruby-identifier">post</span> <span class="ruby-identifier">path</span>, <span class="ruby-identifier">params</span>=<span class="ruby-keyword">nil</span>&#x000A;  <span class="ruby-identifier">opts</span> = <span class="ruby-keyword">self</span>.<span class="ruby-identifier">opts</span>.<span class="ruby-identifier">clone</span>&#x000A;  <span class="ruby-identifier">opts</span>[<span class="ruby-value">:body</span>] = (<span class="ruby-identifier">params</span> <span class="ruby-operator">||</span> {}).<span class="ruby-identifier">merge</span> <span class="ruby-identifier">default_params</span>&#x000A;  <span class="ruby-identifier">execute_request</span> <span class="ruby-value">:post</span>, <span class="ruby-identifier">path</span>, <span class="ruby-identifier">opts</span>&#x000A;<span class="ruby-keyword">end</span></pre>
                 </div>
               </div>
             </div>
@@ -183,7 +221,7 @@
       <div id='footer-push'></div>
     </div>
     <div id='footer'>
-      <a href="http://github.com/mislav/hanna/tree/master"><strong>Hanna</strong> RDoc template</a>
+      <a target="docwin" href="http://github.com/mislav/hanna/tree/master"><strong>Hanna</strong> RDoc template</a>
     </div>
   </body>
 </html>
