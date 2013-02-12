@@ -39,13 +39,13 @@ And you can read from a file:
 
 You can retrieve a secret too:
 
-    $ onetime get er5djg1wodsp5m32oyym489bnuhsfp6
-    [...SECRET...]
+    $ onetime get mc5o2649tva6885wvyspm0flobsasin
+    I STILL WATCH NIGHT COURT.
 
 The URI works too:
 
-    $ onetime get https://onetimesecret.com/secret/er5djg1wodsp5m32oyym489bnuhsfp6
-    [...SECRET...]
+    $ onetime get https://onetimesecret.com/secret/mc5o2649tva6885wvyspm0flobsasin
+    I STILL WATCH NIGHT COURT.
 
 ## Output Format ##
 
