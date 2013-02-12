@@ -1,4 +1,4 @@
-# One-Time Secret #
+# One-Time Secret 0.5 #
 
 **Keep sensitive info out of your chat logs & email.**
 
@@ -34,6 +34,18 @@ And you can read from a file:
     Your secret: CttenFwzVpjs
     https://onetimesecret.com/secret/er5djg1wodsp5m32oyym489bnuhsfp6
 
+
+### onetime get ###
+
+You can retrieve a secret too:
+
+    $ onetime get er5djg1wodsp5m32oyym489bnuhsfp6
+    [...SECRET...]
+
+The URI works too:
+
+    $ onetime get https://onetimesecret.com/secret/er5djg1wodsp5m32oyym489bnuhsfp6
+    [...SECRET...]
 
 ## Output Format ##
 
