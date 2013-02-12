@@ -17,6 +17,8 @@ class Onetime::CLI
     global :c, :custid, String, "Customer ID (e.g. you@yourcompany.com)"
     global :k, :apikey, String, "API key (e.g. 4eb33c6340006d6607c813fc7e707a32f8bf5342)"
 
+    global :r, :recipient, Array, "Email address to deliver the secret link"
+
     global :f, :format, String, "Output format (json or yaml)"
     global :j, :json, "Shorthand for -f json"
     global :y, :yaml, "Shorthand for -f yaml"
@@ -123,6 +125,7 @@ class Onetime::CLI
     option :p, :passphrase, String, "Passphrase to encrypt the secret (something only you and recipient know)"
     option :r, :recipient, Array, "Email address to deliver the secret link"
     command :share do |obj|
+      recipients = [obj.option.recipient, obj.global.recipient].flatten.compact.uniq
       begin
         if Kernel.select [$stdin], nil, nil, 0
           secret_value = STDIN.read
@@ -136,7 +139,7 @@ class Onetime::CLI
         exit 0
       end
       raise RuntimeError, "No secret provided" if secret_value.chomp.empty?
-      opts = { :secret => secret_value, :ttl => obj.option.ttl, :recipient => obj.option.recipient }
+      opts = { :secret => secret_value, :ttl => obj.option.ttl, :recipient => recipients }
       opts[:passphrase] = obj.option.passphrase if obj.option.passphrase
       @res = @api.post '/share', opts
       if @res.nil?
@@ -165,7 +168,8 @@ class Onetime::CLI
     option :p, :passphrase, String, "Passphrase to encrypt the secret (something only you and recipient know)"
     option :r, :recipient, Array, "Email address to deliver the secret link"
     command :generate do |obj|
-      opts = { :ttl => obj.option.ttl, :recipient => obj.option.recipient }
+      recipients = [obj.option.recipient, obj.global.recipient].flatten.compact.uniq
+      opts = { :ttl => obj.option.ttl, :recipient => recipients }
       opts[:passphrase] = obj.option.passphrase if obj.option.passphrase
       @res = @api.post '/generate', opts
       if @res.nil?
