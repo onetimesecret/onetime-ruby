@@ -1,3 +1,7 @@
 Gemfile.lock
 .onetime
 tmp
+.DS_Store
+*~
+pkg
+rdoc

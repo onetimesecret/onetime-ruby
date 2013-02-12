@@ -9,26 +9,26 @@ require 'drydock'
 class Onetime::CLI
   class Definition
     extend Drydock
-    
+
     default :share
-    
+
     global :H, String, "Base URI (e.g. https://onetimesecret.com/api)"
     global :c, :custid, String, "Customer ID (e.g. you@yourcompany.com)"
     global :k, :apikey, String, "API key (e.g. 4eb33c6340006d6607c813fc7e707a32f8bf5342)"
-    
+
     global :f, :format, String, "Output format (json or yaml)"
     global :j, :json, "Shorthand for -f json"
     global :y, :yaml, "Shorthand for -f yaml"
-    
+
     global :D, :debug do
       OT::API.debug_output STDERR
     end
-    
+
     global :V, :version do
       puts OT::API::VERSION
       exit 0
     end
-    
+
     before do |obj|
       OT::API.base_uri obj.global.H if obj.global.H
       @api = OT::API.new obj.global.custid, obj.global.apikey
@@ -42,7 +42,7 @@ class Onetime::CLI
         raise RuntimeError, "No tty. Must specify an output format. See #{$0} generate -h"
       end
     end
-    
+
     after do |obj|
       case obj.global.format
       when 'json'
@@ -51,12 +51,12 @@ class Onetime::CLI
         puts @res.to_yaml
       end
     end
-    
+
     usage "onetime status"
     command :status do |obj|
       @res = @api.get '/status'
       if @res.nil?
-        raise RuntimeError, 'Could not complete request' 
+        raise RuntimeError, 'Could not complete request'
       elsif @api.response.code != 200
         raise RuntimeError, @res['message']
       end
@@ -67,7 +67,7 @@ class Onetime::CLI
         puts 'Service Status: %s' % @res[:status]
       end
     end
-    
+
     argv :key
     usage "onetime metadata <KEY>"
     command :metadata do |obj|
@@ -75,7 +75,7 @@ class Onetime::CLI
       raise RuntimeError, "Usage: #{$0} metadata <KEY>" unless obj.argv.key
       @res = @api.post '/metadata/%s' % obj.argv.key
       if @res.nil?
-        raise RuntimeError, 'Could not complete request' 
+        raise RuntimeError, 'Could not complete request'
       elsif @api.response.code != 200
         raise RuntimeError, @res['message']
       end
@@ -83,7 +83,7 @@ class Onetime::CLI
         puts @res.to_yaml
       end
     end
-    
+
     option :p, :passphrase, String, "Passphrase to decrypt the secret (only required if one was provided to you)"
     argv :key
     usage "onetime secret <KEY>"
@@ -95,7 +95,7 @@ class Onetime::CLI
       opts[:passphrase] = obj.option.passphrase if obj.option.passphrase
       @res = @api.post '/secret/%s' % [obj.argv.key], opts
       if @res.nil?
-        raise RuntimeError, 'Could not complete request' 
+        raise RuntimeError, 'Could not complete request'
       elsif @api.response.code != 200
         raise RuntimeError, @res['message']
       end
@@ -103,7 +103,7 @@ class Onetime::CLI
         puts @res.to_yaml
       end
     end
-    
+
     usage "onetime share"
     usage "onetime share [-t 3600] [-p PASSPHRASE]"
     usage "echo 'your secret' | onetime share"
@@ -116,7 +116,7 @@ class Onetime::CLI
         if Kernel.select [$stdin], nil, nil, 0
           secret_value = STDIN.read
         else
-          STDERR.puts "Paste secret here (hit control-D to continue):"
+          STDERR.puts "Paste message here (hit control-D to continue):"
           secret_value = ARGF.read
           STDERR.puts # new line to let the person know we got it.
         end
@@ -129,7 +129,7 @@ class Onetime::CLI
       opts[:passphrase] = obj.option.passphrase if obj.option.passphrase
       @res = @api.post '/share', opts
       if @res.nil?
-        raise RuntimeError, 'Could not complete request' 
+        raise RuntimeError, 'Could not complete request'
       elsif @api.response.code != 200
         raise RuntimeError, @res['message']
       end
@@ -142,7 +142,7 @@ class Onetime::CLI
         end
       end
     end
-    
+
     usage "onetime generate"
     usage "onetime generate [-t 3600] [-p PASSPHRASE]"
     option :t, :ttl, Integer, "Time-to-live in seconds"
@@ -153,7 +153,7 @@ class Onetime::CLI
       opts[:passphrase] = obj.option.passphrase if obj.option.passphrase
       @res = @api.post '/generate', opts
       if @res.nil?
-        raise RuntimeError, 'Could not complete request' 
+        raise RuntimeError, 'Could not complete request'
       elsif @api.response.code != 200
         raise RuntimeError, @res['message']
       end
@@ -182,13 +182,13 @@ class Onetime::CLI
             print eraser
           end
         else
-          puts 
+          puts
           print uri
         end
         puts
       end
     end
-    
+
   end
 end
 

@@ -16,38 +16,44 @@ end
 
 
 # Onetime::API - v0.3
-# 
-# A basic client library for the onetimesecret.com API. 
+#
+# A basic client library for the onetimesecret.com API.
 #
 # Usage:
 #
 #     api = OT::API.new 'delano@onetimesecret.com', '4eb33c6340006d6607c813fc7e707a32f8bf5342'
 #
-#     api.get '/status'     
+#     api.get '/status'
 #       # => {'status' => 'nominal'}
 #
 #     api.post '/generate', :passphrase => 'yourspecialpassphrase'
 #       # => {'value' => '3Rg8R2sfD3?a', 'metadata_key' => '...', 'secret_key' => '...'}
-#       
+#
 module Onetime
   class API
+    unless defined?(Onetime::API::HOME)
+      HOME = File.expand_path File.join(File.dirname(__FILE__), '..', '..')
+    end
     module VERSION
-      def self.to_s
-        load_config
-        [@version[:MAJOR], @version[:MINOR], @version[:PATCH]].join('.')
-      end
-      def self.inspect
-        to_s
-      end
-      def self.load_config
-        require 'yaml'
-        @version ||= YAML.load_file(File.join(LIB_HOME, '..', '..', 'VERSION.yml'))
+      @path = File.join(Onetime::API::HOME, 'VERSION')
+      class << self
+        attr_reader :version, :path
+        def version
+          @version || read_version
+        end
+        def read_version
+          return if @version
+          @version = File.read(path).strip!
+        end
+        def prerelease?() false end
+        def to_a()     version.split('.')   end
+        def to_s()     version              end
+        def inspect()  version              end
       end
     end
   end
   class API
     include HTTParty
-    LIB_HOME = File.expand_path File.dirname(__FILE__) unless defined?(Onetime::API::LIB_HOME)
     base_uri 'https://onetimesecret.com/api'
     format :json
     headers 'X-Onetime-Client' => Onetime::API::VERSION.to_s
@@ -55,7 +61,7 @@ module Onetime
     attr_accessor :apiversion
     def initialize custid=nil, key=nil, opts={}
       unless ENV['ONETIME_HOST'].to_s.empty?
-        self.class.base_uri ENV['ONETIME_HOST'] 
+        self.class.base_uri ENV['ONETIME_HOST']
       end
       @apiversion = opts.delete(:apiversion) || opts.delete('apiversion') || 1
       @opts = opts
