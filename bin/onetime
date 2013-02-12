@@ -19,6 +19,7 @@ class Onetime::CLI
     global :f, :format, String, "Output format (json or yaml)"
     global :j, :json, "Shorthand for -f json"
     global :y, :yaml, "Shorthand for -f yaml"
+    global :s, :string, "Shorthand for -f string (default)"
 
     global :D, :debug do
       OT::API.debug_output STDERR
@@ -34,13 +35,15 @@ class Onetime::CLI
       @api = OT::API.new obj.global.custid, obj.global.apikey
       obj.global.format = 'yaml' if obj.global.yaml
       obj.global.format = 'json' if obj.global.json
+      obj.global.format = 'string' if obj.global.string
       obj.global.format = nil if obj.global.format == 'string'
-      if obj.global.format && !['json', 'yaml', 'csv'].member?(obj.global.format)
+      if obj.global.format && !['json', 'yaml'].member?(obj.global.format)
         raise RuntimeError, "Unsupported format: #{obj.global.format}"
       end
-      if !STDOUT.tty? && !obj.global.format
-        raise RuntimeError, "No tty. Must specify an output format. See #{$0} generate -h"
-      end
+      ## NOTE: Disabled checking for tty. Just assume string format.
+      #if !STDOUT.tty? && !obj.global.format
+      #  raise RuntimeError, "No tty. Must specify an output format. See #{$0} generate -h"
+      #end
     end
 
     after do |obj|
