@@ -1,11 +1,16 @@
 ONETIME, CHANGES
 
+#### 0.4.1 (2013-02-12) ###############################
+
+* CHANGE: All releases will now be signed. See "Installation" in the readme.
+* CHANGE: json dependency upgraded from 1.6.4 to 1.6.8
+
 #### 0.4.0 (2012-01-07) ###############################
 
 * ADDED: Support for ttl, passphrase, and email recipient
 * ADDED: Better error handling
-* CHANGED: env variable ONETIME_ACCOUNT -> ONETIME_CUSTID
-* CHANGED: global option -u is now -H
+* CHANGE: env variable ONETIME_ACCOUNT -> ONETIME_CUSTID
+* CHANGE: global option -u is now -H
 
 
 #### 0.3.1 (2012-01-06) ###############################
