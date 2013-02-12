@@ -7,6 +7,7 @@ ONETIME, CHANGES
 * ADDED: Explicit support for string format
 * FIXED: Confusion around csv support (there is no csv support)
 * CHANGE: Disabled checking for tty. Just assume string format.
+* CHANGE: 'secret' command returns just the secret message by default (not yaml)
 
 
 #### 0.4.1 (2013-02-12) ###############################

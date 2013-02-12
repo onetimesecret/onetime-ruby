@@ -38,21 +38,8 @@ class Onetime::CLI
       obj.global.format = 'json' if obj.global.json
       obj.global.format = 'string' if obj.global.string
       obj.global.format = nil if obj.global.format == 'string'
-      if obj.global.format && !['json', 'yaml'].member?(obj.global.format)
+      if obj.global.format && !['json', 'yaml', 'csv'].member?(obj.global.format)
         raise RuntimeError, "Unsupported format: #{obj.global.format}"
-      end
-      ## NOTE: Disabled checking for tty. Just assume string format.
-      #if !STDOUT.tty? && !obj.global.format
-      #  raise RuntimeError, "No tty. Must specify an output format. See #{$0} generate -h"
-      #end
-    end
-
-    after do |obj|
-      case obj.global.format
-      when 'json'
-        puts @res.to_json
-      when 'yaml'
-        puts @res.to_yaml
       end
     end
 
@@ -64,7 +51,12 @@ class Onetime::CLI
       elsif @api.response.code != 200
         raise RuntimeError, @res['message']
       end
-      unless obj.global.format
+      case obj.global.format
+      when 'json'
+        puts @res.to_json
+      when 'yaml'
+        puts @res.to_yaml
+      else
         msg = @api.anonymous ? 'Anonymous' : @api.custid
         STDERR.puts '# Host: %s' % OT::API.base_uri
         STDERR.puts '# Account: %s' % msg
@@ -83,7 +75,12 @@ class Onetime::CLI
       elsif @api.response.code != 200
         raise RuntimeError, @res['message']
       end
-      unless obj.global.format
+      case obj.global.format
+      when 'json'
+        puts @res.to_json
+      when 'yaml'
+        puts @res.to_yaml
+      else
         puts @res.to_yaml
       end
     end
@@ -107,8 +104,13 @@ class Onetime::CLI
       elsif @api.response.code != 200
         raise RuntimeError, @res['message']
       end
-      unless obj.global.format
+      case obj.global.format
+      when 'json'
+        puts @res.to_json
+      when 'yaml'
         puts @res.to_yaml
+      else
+        puts @res[:value] if @res
       end
     end
     command_alias :secret, :get
@@ -143,7 +145,12 @@ class Onetime::CLI
         raise RuntimeError, @res['message']
       end
       uri = OT::API.web_uri('secret', @res[:secret_key])
-      if obj.global.format == 'csv' || obj.global.format.nil?
+      case obj.global.format
+      when 'json'
+        puts @res.to_json
+      when 'yaml'
+        puts @res.to_yaml
+      else
         if @res[:recipient] && !@res[:recipient].compact.empty?
           STDERR.puts '# Secret link sent to: %s' % @res[:recipient].join(',')
         else
@@ -167,10 +174,14 @@ class Onetime::CLI
         raise RuntimeError, @res['message']
       end
       uri, secret_value = OT::API.web_uri('secret', @res[:secret_key]), @res[:value]
-      STDERR.puts @res.inspect if obj.global.debug
-      if obj.global.format == 'csv'
+      case obj.global.format
+      when 'json'
+        puts @res.to_json
+      when 'yaml'
+        puts @res.to_yaml
+      when 'csv'
         puts [secret_value,uri].join ','
-      elsif obj.global.format.nil?
+      else
         msg = 'Your secret (hit return to continue): %s' % secret_value
         if @res[:recipient] && !@res[:recipient].compact.empty?
           uri = "\e[K\r# Secret link sent to: %s" % [@res[:recipient].join(',').ljust(40, ' ')]
