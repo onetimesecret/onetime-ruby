@@ -56,7 +56,7 @@ module Onetime
     include HTTParty
     base_uri 'https://onetimesecret.com/api'
     format :json
-    headers 'X-Onetime-Client' => Onetime::API::VERSION.to_s
+    headers 'X-Onetime-Client' => 'ruby: %s/%s' % [RUBY_VERSION, Onetime::API::VERSION.to_s]
     attr_reader :opts, :response, :custid, :key, :default_params, :anonymous
     attr_accessor :apiversion
     def initialize custid=nil, key=nil, opts={}
