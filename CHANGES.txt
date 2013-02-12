@@ -1,10 +1,13 @@
 ONETIME, CHANGES
 
-#### 0.4.2 (2013-02-12) ###############################
+#### 0.5.0 (2013-02-12) ###############################
 
+* ADDED: Support for getting secrets based on the URI
+* ADDED: Command alias 'get' for 'secret'
 * ADDED: Explicit support for string format
 * FIXED: Confusion around csv support (there is no csv support)
 * CHANGE: Disabled checking for tty. Just assume string format.
+
 
 #### 0.4.1 (2013-02-12) ###############################
 

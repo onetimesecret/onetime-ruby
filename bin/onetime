@@ -3,6 +3,7 @@
 base_path = File.expand_path File.join(File.dirname(__FILE__), '..')
 $:.unshift File.join(base_path, 'lib')
 
+require 'uri'
 require 'onetime/api'
 require 'drydock'
 
@@ -96,6 +97,10 @@ class Onetime::CLI
       raise RuntimeError, "Usage: #{$0} secret <KEY>" unless obj.argv.key
       opts = {}
       opts[:passphrase] = obj.option.passphrase if obj.option.passphrase
+      base_uri = URI.parse Onetime::API.base_uri
+      if obj.argv.key =~ /#{base_uri.hostname}\/secret\/([a-zA-Z0-9]+)/
+        obj.argv.key = $1
+      end
       @res = @api.post '/secret/%s' % [obj.argv.key], opts
       if @res.nil?
         raise RuntimeError, 'Could not complete request'
@@ -106,6 +111,7 @@ class Onetime::CLI
         puts @res.to_yaml
       end
     end
+    command_alias :secret, :get
 
     usage "onetime share"
     usage "onetime share [-t 3600] [-p PASSPHRASE]"
