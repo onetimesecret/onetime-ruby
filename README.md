@@ -67,7 +67,7 @@ The URI works too:
 
         # Add the public key as a trusted certificate
         # (You only need to do this once)
-        $ curl -O https://raw.github.com/onetimesecret/onetime-ruby/master/gem-public_cert.pem
+        $ curl -O https://raw.githubusercontent.com/onetimesecret/onetime-ruby/master/gem-public_cert.pem
         $ gem cert --add gem-public_cert.pem
 
     Then, when install the gem, do so with high security:
